@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import asyncHandler from "express-async-handler"
+import LandingPageUser from "./models/userModel.js"
 
 dotenv.config()
 
@@ -13,8 +14,31 @@ app.use(express.json())
 
 //routes
 
-app.post("/signup", asyncHandler((req, res) => {
-  res.json({message:"hello"})
+app.post("/signup", asyncHandler(async (req, res) => {
+    const {name, email} = req.body
+
+    const userExists = await LandingPageUser.findOne({email: email})
+
+    if(userExists){
+        res.status(400)
+        throw new Error("User already exists")
+    }
+
+    const user = await LandingPageUser.create({
+        name,
+        email
+    })
+
+    if(user){
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        })
+    }else{
+        res.status(400)
+        throw new Error("Invalid user data")
+    }
 }))
 
 
