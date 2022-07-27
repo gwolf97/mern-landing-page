@@ -8,7 +8,12 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon backend/server"
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "server": "nodemon backend/server.js",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"cd client && npm run start --prefix client\""
   },
   "dependencies": {
     "concurrently": "^7.3.0",
