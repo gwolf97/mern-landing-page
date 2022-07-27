@@ -9,8 +9,6 @@ const ThankYouScreen = () => {
     const params = useParams()
     const {id} = params
 
-    console.log(params)
-
     React.useEffect(()=>{
     const getMembersCount = async () => {
       const {data} = await axios.get("http://localhost:5000/")

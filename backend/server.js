@@ -1,11 +1,19 @@
 import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
+import path from "path"
+import { fileURLToPath } from "url"
 import connectDB from "./config/db.js"
 import asyncHandler from "express-async-handler"
 import LandingPageUser from "./models/userModel.js"
 
 dotenv.config()
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
+console.log(__dirname)
 
 connectDB()
 
@@ -59,6 +67,13 @@ app.post("/signup", asyncHandler(async (req, res) => {
         throw new Error("Invalid user data")
     }
 }))
+
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
 
 
 const PORT = process.env.PORT || 5000
