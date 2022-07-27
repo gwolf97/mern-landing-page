@@ -14,7 +14,7 @@ const LandingScreen = () => {
 
     useEffect(()=>{
     const getMembersCount = async () => {
-      const {data} = await axios.get("/home")
+      const {data} = await axios.get("/home", {})
       const {members} = data
       setMembers(members)
     }
@@ -44,7 +44,8 @@ const LandingScreen = () => {
       {
         setMessage("Please, enter a Name")
         return
-      }else if(message == "Please, enter valid Email!"){
+      }else if(email == ""){
+        setMessage("Please, enter an Email")
         return
       }else{
         setName("")
