@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
-import {useDispatch, useSelector} from "react-redux"
-import { totalMembers, getTotalMembers } from '../slices/membersSlice'
+
 
 const LandingScreen = () => {
     const [name, setName] = React.useState("")
     const [email, setEmail] = React.useState("")
+    const [members, setMembers] = React.useState("")
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    
-    const members = useSelector((state) => state.members)
-    const {count} = members
-    console.log(count)
 
-    useEffect(() =>{
-      dispatch(getTotalMembers())
+    useEffect(()=>{
+    const getMembersCount = async () => {
+      const {data} = await axios.get("http://localhost:5000/")
+      const {members} = data
+      setMembers(members)
+    }
+
+      getMembersCount()
     },[])
   
     const postData = async () => {
@@ -44,7 +45,7 @@ const LandingScreen = () => {
         </h1>
 
         <div className="text-lg md:text-2xl lg:text-3xl px-4 md:py-4 md:px-10 lg:py-6 lg:px-12 bg-white bg-opacity-10 w-fit mx-auto mb-8 rounded-full">
-          942,243 members
+          {members} member{members !== 1 && "s"}
         </div>
 
         <form onSubmit={submitHandler}>

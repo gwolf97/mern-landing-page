@@ -21,6 +21,18 @@ app.get("/", asyncHandler(async (req,res) =>{
     res.json({members: members})
 }))
 
+app.get("/:id", asyncHandler(async (req,res) =>{
+    const user = await LandingPageUser.findById(req.params.id)
+    if(user){
+        res.json({
+            name: user.name,
+        })
+     }else{
+        res.status(404)
+        throw new Error("User not found")
+     }
+}))
+
 app.post("/signup", asyncHandler(async (req, res) => {
     const {name, email} = req.body
 
