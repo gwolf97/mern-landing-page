@@ -24,7 +24,7 @@ app.use(cors())
 
 //routes
 
-app.get("/", asyncHandler(async (req,res) =>{
+app.get("/home", asyncHandler(async (req,res) =>{
     const members = (await LandingPageUser.find()).length
     res.json({members: members})
 }))

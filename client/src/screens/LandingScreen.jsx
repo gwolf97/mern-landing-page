@@ -14,7 +14,7 @@ const LandingScreen = () => {
 
     useEffect(()=>{
     const getMembersCount = async () => {
-      const {data} = await axios.get("/")
+      const {data} = await axios.get("/home")
       const {members} = data
       setMembers(members)
     }
