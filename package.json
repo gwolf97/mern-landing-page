@@ -8,8 +8,14 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node backend/server.js",
-        "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "install-client": "cd client && npm install --legacy-peer-deps",
+    "build": "cd client && npm run build",
+    "start": "node backend/server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-client && npm run build --prefix client"
     },
   "dependencies": {
     "concurrently": "^7.3.0",
