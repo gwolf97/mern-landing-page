@@ -32,7 +32,6 @@ const LandingScreen = () => {
       if (validator.isEmail(email)) {
         return
       } else {
-        setMessage("Please, enter valid Email!");
         return
       }
     };
