@@ -28,17 +28,23 @@ const LandingScreen = () => {
       navigate(`${data._id}`)
     }
 
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     const validateEmail = (email) => {
-      if (validator.isEmail(email)) {
-        return
-      } else {
-        return
-      }
+      if ( re.test(email) ) {
+        postData()
+        setName("")
+        setEmail("")
+        setMessage("")
+    }
+    else {
+        setMessage("Please enter a valid Email")
+       return
+    }
     };
   
     const submitHandler = async (e) => {
       e.preventDefault()
-      validateEmail(email)
       if(name === "")
       {
         setMessage("Please, enter a Name")
@@ -47,9 +53,7 @@ const LandingScreen = () => {
         setMessage("Please, enter an Email")
         return
       }else{
-        setName("")
-        setEmail("")
-        postData()
+        validateEmail(email)
       }
     }
   return (

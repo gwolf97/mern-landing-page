@@ -29,7 +29,7 @@ app.get("/home", asyncHandler(async (req,res) =>{
     res.json({members: members})
 }))
 
-app.get("/:id", asyncHandler(async (req,res) =>{
+app.get("/home/:id", asyncHandler(async (req,res) =>{
     const user = await LandingPageUser.findById(req.params.id)
     if(user){
         res.json({

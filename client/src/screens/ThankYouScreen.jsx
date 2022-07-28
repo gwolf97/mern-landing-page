@@ -11,20 +11,20 @@ const ThankYouScreen = () => {
 
     React.useEffect(()=>{
     const getMembersCount = async () => {
-      const {data} = await axios.get("http://localhost:5000/")
+      const {data} = await axios.get("/home")
       const {members} = data
       setMembers(members)
     }
 
     const getName = async () => {
-        const {data} = await axios.get(`/${id}`)
+        const {data} = await axios.get(`/home/${id}`)
         const {name} = data
         setName(name)
     }
 
     getName()
     getMembersCount()
-    },[])
+    },[id])
   return (
     <main className="min-h-screen flex flex-col text-white">
         <div className="container mx-auto px-6 pt-16 flex-1 text-center">
