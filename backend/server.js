@@ -11,7 +11,7 @@ dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url);
 
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename)
 
 console.log(__dirname)
 
@@ -69,10 +69,10 @@ app.post("/signup", asyncHandler(async (req, res) => {
 }))
 
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+  response.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
 });
 
 
